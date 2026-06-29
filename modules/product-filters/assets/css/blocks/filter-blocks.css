@@ -1,0 +1,72 @@
+/**
+ * TejCart Filter Blocks — Frontend Styles
+ *
+ * Supplements product/filters.css with block-specific layout.
+ * Depends on design tokens from tejcart-public.css and the
+ * .tejcart-facet-* class rules from product/filters.css.
+ *
+ * @package TejCart
+ */
+
+/* ── Block wrapper ── */
+
+.tejcart-filter-block {
+    margin-bottom: var(--tejcart-space-4);
+}
+
+.tejcart-filter-block:last-child {
+    margin-bottom: 0;
+}
+
+/* ── Inline display for attribute block ── */
+
+.tejcart-facet-list--inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tejcart-space-2);
+}
+
+.tejcart-facet-list--inline .tejcart-facet-item {
+    margin: 0;
+}
+
+.tejcart-facet-list--inline .tejcart-facet-label {
+    padding: 4px 10px;
+    border: 1px solid var(--tejcart-border);
+    border-radius: var(--tejcart-radius-pill);
+    font-size: var(--tejcart-font-size-xs);
+    transition:
+        background var(--tejcart-duration-base) var(--tejcart-ease),
+        border-color var(--tejcart-duration-base) var(--tejcart-ease);
+}
+
+.tejcart-facet-list--inline .tejcart-facet-label:hover {
+    border-color: var(--tejcart-accent);
+}
+
+.tejcart-facet-list--inline .tejcart-facet-label:has(input:checked) {
+    background: var(--tejcart-accent-soft, rgba(17,24,39,0.06));
+    border-color: var(--tejcart-accent);
+}
+
+.tejcart-facet-list--inline .tejcart-facet-label input[type="checkbox"] {
+    width: 0;
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+}
+
+/* ── JS-enhanced: hide noscript submit buttons ── */
+
+.tejcart-filter-block-form.is-enhanced noscript {
+    display: none;
+}
+
+/* ── Mobile: collapsible sections default closed ── */
+
+@media (max-width: 599px) {
+    .tejcart-filter-block .tejcart-facet-section:not([open]) .tejcart-facet-body {
+        display: none;
+    }
+}

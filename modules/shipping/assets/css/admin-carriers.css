@@ -1,0 +1,404 @@
+/**
+ * TejCart Shipping — Carriers admin UI.
+ *
+ * Builds on top of `tejcart-admin.css`. Reuses the design tokens
+ * (--nc-*), card, pill, and toggle primitives from core so the
+ * carriers screen feels native to the rest of Settings. Anything in
+ * here is carriers-specific: list-view region cards, the carrier-row
+ * slug code, the configure-page header layout, the segmented
+ * Live/Sandbox control, and the secret-field show/hide affordance.
+ */
+
+.tejcart-admin-wrap .tejcart-carriers-list__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-list__header-text {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-list__search {
+    flex: 0 0 280px;
+    max-width: 100%;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-list__search-input {
+    width: 100%;
+    min-height: 36px;
+    padding: 6px 12px;
+    border: 1px solid var(--nc-border);
+    border-radius: var(--nc-radius-sm);
+    background: var(--nc-bg-card);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--nc-heading);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-list__search-input:focus {
+    border-color: var(--nc-border-focus, var(--nc-primary));
+    box-shadow: 0 0 0 2px var(--nc-primary-bg);
+    outline: none;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-region {
+    margin-bottom: 20px;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-region .tejcart-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-region__count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--nc-text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-table {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carriers-table thead th {
+    background: var(--nc-bg-subtle);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-row__label {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-row__slug {
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 1px 6px;
+    background: var(--nc-bg-subtle);
+    border: 1px solid var(--nc-border-light, var(--nc-border));
+    border-radius: var(--nc-radius-sm);
+    color: var(--nc-text-secondary);
+    width: max-content;
+    max-width: 100%;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-row__status-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    line-height: 1.5;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-row__status-text {
+    font-size: 12.5px;
+    color: var(--nc-text-secondary);
+}
+
+.tejcart-admin-wrap .tejcart-carriers-list__empty {
+    text-align: center;
+    padding: 24px;
+    color: var(--nc-text-secondary);
+}
+
+.tejcart-admin-wrap .tejcart-carriers-list__empty[hidden] {
+    display: none;
+}
+
+/* ===== Configure page ===== */
+
+.tejcart-admin-wrap .tejcart-carrier-configure__breadcrumb {
+    margin: 0 0 16px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--nc-text-secondary);
+    text-decoration: none;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__back:hover,
+.tejcart-admin-wrap .tejcart-carrier-configure__back:focus {
+    color: var(--nc-primary);
+    text-decoration: underline;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__heading h2 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: var(--nc-heading);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field {
+    display: grid;
+    grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--nc-border-light, var(--nc-border));
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--nc-heading);
+    padding-top: 7px;
+    line-height: 1.4;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__required {
+    color: var(--nc-error, #d63638);
+    margin-left: 2px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__control {
+    min-width: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__help {
+    margin: 6px 0 0;
+    color: var(--nc-text-secondary);
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__input,
+.tejcart-admin-wrap .tejcart-carrier-field__select,
+.tejcart-admin-wrap .tejcart-carrier-field__textarea {
+    width: 100%;
+    max-width: 480px;
+    min-height: 36px;
+    padding: 7px 12px;
+    border: 1px solid var(--nc-border);
+    border-radius: var(--nc-radius-sm);
+    background: var(--nc-bg-card);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--nc-heading);
+    box-shadow: none;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__textarea {
+    max-width: 640px;
+    min-height: 160px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12.5px;
+    resize: vertical;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__input:focus,
+.tejcart-admin-wrap .tejcart-carrier-field__select:focus,
+.tejcart-admin-wrap .tejcart-carrier-field__textarea:focus {
+    border-color: var(--nc-border-focus, var(--nc-primary));
+    box-shadow: 0 0 0 2px var(--nc-primary-bg);
+    outline: none;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__secret-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__secret-wrap .tejcart-carrier-field__input {
+    flex: 1 1 auto;
+    max-width: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__reveal {
+    flex: 0 0 auto;
+    padding: 0 4px;
+    color: var(--nc-text-secondary);
+    font-size: 12.5px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__reveal:hover,
+.tejcart-admin-wrap .tejcart-carrier-field__reveal:focus {
+    color: var(--nc-primary);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-field__checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--nc-heading);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented {
+    display: inline-flex;
+    border: 1px solid var(--nc-border);
+    border-radius: var(--nc-radius-sm);
+    overflow: hidden;
+    background: var(--nc-bg-subtle);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option {
+    position: relative;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--nc-text-secondary);
+    cursor: pointer;
+    line-height: 1.4;
+    transition: background 0.15s ease, color 0.15s ease;
+    border-right: 1px solid var(--nc-border);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option:last-child {
+    border-right: 0;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option.is-active {
+    background: var(--nc-bg-card);
+    color: var(--nc-heading);
+    box-shadow: inset 0 -2px 0 var(--nc-primary);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option.is-active.is-live {
+    box-shadow: inset 0 -2px 0 var(--nc-success, #00a32a);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option.is-active.is-sandbox {
+    box-shadow: inset 0 -2px 0 var(--nc-warning, #dba617);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-segmented__option:focus-within {
+    outline: 2px solid var(--nc-primary);
+    outline-offset: 2px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    border-top: 1px solid var(--nc-border);
+    background: var(--nc-bg-subtle);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__footer-actions,
+.tejcart-admin-wrap .tejcart-carrier-configure__footer-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__test-result {
+    font-size: 12.5px;
+    color: var(--nc-text-secondary);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__test-result.is-success {
+    color: var(--nc-success, #00a32a);
+}
+
+.tejcart-admin-wrap .tejcart-carrier-configure__test-result.is-error {
+    color: var(--nc-error, #d63638);
+}
+
+/* ===== Order shipments panel ===== */
+
+.tejcart-shipping-buy-form {
+    margin-top: 1em;
+}
+
+.tejcart-shipping-shipments-table {
+    margin-top: 1em;
+}
+
+.tejcart-shipping-action-form {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+@media (max-width: 782px) {
+    .tejcart-admin-wrap .tejcart-carrier-field {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .tejcart-admin-wrap .tejcart-carrier-field__label {
+        padding-top: 0;
+    }
+
+    .tejcart-admin-wrap .tejcart-carrier-configure__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tejcart-admin-wrap .tejcart-carrier-configure__footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tejcart-admin-wrap .tejcart-carrier-configure__footer-save {
+        justify-content: flex-end;
+    }
+}

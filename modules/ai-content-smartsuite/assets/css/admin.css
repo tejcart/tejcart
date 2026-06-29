@@ -1,0 +1,420 @@
+/**
+ * TejCart AI Content SmartSuite — Content Generator admin styles.
+ *
+ * Loaded after `tejcart-admin.css`, so it inherits the core design tokens
+ * (--nc-*) and just adds the page-specific bits.
+ */
+
+.tejcart-ai-content-wrap .tejcart-ai-field-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    background: var(--nc-bg-card, #fff);
+    border-bottom: 1px solid var(--nc-border, #e0e0e0);
+}
+
+.tejcart-ai-field-tab {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 20px;
+    color: var(--nc-text-secondary, #6b7280);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: var(--nc-transition, all 0.15s ease);
+}
+
+.tejcart-ai-field-tab:hover {
+    color: var(--nc-text, #1e1e1e);
+    background: var(--nc-bg-subtle, #f9fafb);
+}
+
+.tejcart-ai-field-tab.is-active {
+    color: var(--nc-primary, #000);
+    border-bottom-color: var(--nc-primary, #000);
+    font-weight: 600;
+}
+
+.tejcart-ai-field-tab:focus-visible {
+    outline: 2px solid var(--nc-primary, #000);
+    outline-offset: -2px;
+}
+
+.tejcart-ai-toolbar {
+    padding-bottom: 12px;
+}
+
+.tejcart-ai-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.tejcart-ai-filters select,
+.tejcart-ai-filters input[type=search] {
+    min-height: 32px;
+}
+
+.tejcart-ai-filters input[type=search] {
+    flex: 1 1 220px;
+    min-width: 200px;
+}
+
+.tejcart-ai-spinner {
+    float: none;
+    visibility: hidden;
+    margin: 0 4px;
+}
+
+.tejcart-ai-spinner.is-active {
+    visibility: visible;
+}
+
+.tejcart-ai-bulk-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--nc-bg-subtle, #f9fafb);
+    border-top: 1px solid var(--nc-border, #e0e0e0);
+    border-bottom: 1px solid var(--nc-border, #e0e0e0);
+}
+
+.tejcart-ai-bulk-bar--bottom {
+    border-top: 1px solid var(--nc-border, #e0e0e0);
+    border-bottom: 0;
+    padding: 12px 20px;
+}
+
+.tejcart-ai-bulk-bar__actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tejcart-ai-bulk-status {
+    color: var(--nc-text-secondary, #6b7280);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.tejcart-ai-pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--nc-text-secondary, #6b7280);
+}
+
+.tejcart-ai-pagination .button {
+    min-width: 32px;
+    padding: 0 8px;
+}
+
+/* Table */
+.tejcart-ai-table {
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.tejcart-ai-table thead th {
+    background: var(--nc-bg-subtle, #f9fafb);
+    color: var(--nc-text-secondary, #6b7280);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+.tejcart-ai-table td {
+    vertical-align: top;
+    padding: 12px 12px;
+}
+
+.tejcart-ai-table .check-column {
+    vertical-align: middle;
+}
+
+.tejcart-ai-table .column-image {
+    vertical-align: middle;
+}
+
+.tejcart-ai-table .tejcart-ai-row-image {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: var(--nc-radius-sm, 4px);
+    background: var(--nc-bg-subtle, #f9fafb);
+    border: 1px solid var(--nc-border-light, #f0f0f1);
+}
+
+.tejcart-ai-table .tejcart-ai-row-title {
+    color: var(--nc-text, #1e1e1e);
+    font-weight: 600;
+    display: block;
+    line-height: 1.4;
+}
+
+.tejcart-ai-table .tejcart-ai-row-id {
+    font-size: 12px;
+    color: var(--nc-text-muted, #9ca3af);
+    margin-top: 2px;
+}
+
+.tejcart-ai-table .tejcart-ai-existing,
+.tejcart-ai-table .tejcart-ai-generated {
+    max-height: 160px;
+    overflow-y: auto;
+    line-height: 1.5;
+    font-size: 13px;
+    color: var(--nc-text, #1e1e1e);
+}
+
+.tejcart-ai-table .tejcart-ai-generated em {
+    color: var(--nc-text-muted, #9ca3af);
+    font-style: italic;
+    font-size: 13px;
+}
+
+.tejcart-ai-table .tejcart-ai-empty-cell {
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--nc-text-muted, #9ca3af);
+    font-size: 14px;
+}
+
+.tejcart-ai-table .column-actions {
+    white-space: nowrap;
+}
+
+.tejcart-ai-table .column-actions .button {
+    margin-right: 4px;
+}
+
+.tejcart-ai-faq-summary {
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--nc-border-light, #f0f0f1);
+}
+
+.tejcart-ai-faq-summary:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.tejcart-ai-faq-summary__q {
+    font-weight: 600;
+    color: var(--nc-text, #1e1e1e);
+}
+
+.tejcart-ai-faq-summary__a {
+    color: var(--nc-text-secondary, #6b7280);
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 2px;
+}
+
+/* Callout (no API key) */
+.tejcart-ai-callout {
+    border-left: 3px solid var(--nc-warning, #dba617);
+}
+
+/* Modal */
+.tejcart-ai-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tejcart-ai-modal[hidden] {
+    display: none;
+}
+
+.tejcart-ai-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.tejcart-ai-modal__panel {
+    position: relative;
+    background: var(--nc-bg-card, #fff);
+    width: min(760px, 96vw);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--nc-radius, 8px);
+    box-shadow: var(--nc-shadow-lg, 0 10px 20px -3px rgba(0, 0, 0, 0.1));
+    overflow: hidden;
+}
+
+.tejcart-ai-modal__header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--nc-border, #e0e0e0);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--nc-bg-subtle, #f9fafb);
+}
+
+.tejcart-ai-modal__header h2 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--nc-heading, #23282d);
+}
+
+.tejcart-ai-modal__close {
+    background: none;
+    border: 0;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--nc-text-secondary, #6b7280);
+    padding: 4px 8px;
+    border-radius: var(--nc-radius-sm, 4px);
+    transition: var(--nc-transition, all 0.15s ease);
+}
+
+.tejcart-ai-modal__close:hover {
+    background: var(--nc-bg, #f0f0f1);
+    color: var(--nc-text, #1e1e1e);
+}
+
+.tejcart-ai-modal__body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+.tejcart-ai-modal__body textarea,
+.tejcart-ai-modal__body input[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tejcart-ai-modal__footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--nc-border, #e0e0e0);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--nc-bg-subtle, #f9fafb);
+}
+
+.tejcart-ai-modal__sp {
+    display: flex;
+    gap: 8px;
+}
+
+.tejcart-ai-edit-body textarea {
+    min-height: 240px;
+    font: inherit;
+    border-radius: var(--nc-radius-sm, 4px);
+    padding: 10px 12px;
+}
+
+.tejcart-ai-extra-label {
+    display: block;
+    margin-top: 14px;
+}
+
+.tejcart-ai-extra-label textarea {
+    width: 100%;
+    border-radius: var(--nc-radius-sm, 4px);
+    padding: 8px 10px;
+}
+
+.tejcart-ai-faq-editor__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tejcart-ai-faq-row {
+    display: grid;
+    grid-template-columns: 24px 1fr 70px;
+    grid-template-rows: auto auto;
+    gap: 6px 10px;
+    padding: 12px;
+    border: 1px solid var(--nc-border, #e0e0e0);
+    border-radius: var(--nc-radius, 8px);
+    background: var(--nc-bg-subtle, #f9fafb);
+}
+
+.tejcart-ai-faq-row__handle {
+    grid-row: span 2;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    color: var(--nc-text-muted, #9ca3af);
+    user-select: none;
+    font-size: 18px;
+}
+
+.tejcart-ai-faq-row__q {
+    grid-column: 2;
+    border-radius: var(--nc-radius-sm, 4px);
+}
+
+.tejcart-ai-faq-row__a {
+    grid-column: 2;
+    border-radius: var(--nc-radius-sm, 4px);
+}
+
+.tejcart-ai-faq-row__delete {
+    grid-column: 3;
+    grid-row: span 2;
+    align-self: center;
+    justify-self: end;
+}
+
+/* Header "Settings" button — vertical alignment for the dashicon. */
+.tejcart-admin-wrap .tejcart-ai-settings-btn .dashicons {
+    margin-top: 3px;
+}
+
+/* "OpenAI API key not configured" callout. Layout-only — colours
+   come from the canonical --nc-warning / --nc-text-secondary tokens. */
+.tejcart-ai-callout__body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tejcart-ai-callout__icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: var(--nc-warning, #dba617);
+}
+
+.tejcart-ai-callout__text {
+    flex: 1 1 auto;
+}
+
+.tejcart-ai-callout__detail {
+    margin: 4px 0 0;
+    color: var(--nc-text-secondary, #6b7280);
+}
+
+.tejcart-ai-callout__cta {
+    flex: 0 0 auto;
+}
+
+/* Tabs card header is just a container for the tab strip; remove the
+   default card-header padding so the tab strip can take the full width. */
+.tejcart-ai-tabs-card__header {
+    padding: 0;
+}

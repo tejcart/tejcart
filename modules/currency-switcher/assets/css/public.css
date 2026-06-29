@@ -1,0 +1,837 @@
+/* TejCart Currency Switcher — front-end styles.
+ *
+ * Every dropdown / sidebar rule is **double-scoped** so it beats common
+ * theme rules like Astra's `.entry-content ul li` (specificity 0,1,2)
+ * that would otherwise inject left-indent, bullets, and an unwanted
+ * line-height into the option list. We pair the root class with each
+ * child class (e.g. `.tejcart-csw-dropdown .tejcart-csw-dropdown__list`)
+ * which yields 0,2,0 — enough to win against ancestor-class theme rules
+ * without resorting to `!important` on layout properties.
+ *
+ * The few `!important` declarations below are reserved for two things
+ * themes are notorious for forcing onto every `<li>`:
+ *   1. list bullets / numbering via `::marker` and `::before`
+ *   2. extra `padding-left` on the parent `<ul>`
+ * Those two stay non-negotiable.
+ */
+
+.tejcart-csw-dropdown,
+.tejcart-csw-sidebar {
+    --tejcart-csw-bg: #ffffff;
+    --tejcart-csw-fg: #0f172a;
+    --tejcart-csw-muted: #64748b;
+    --tejcart-csw-border: #e2e8f0;
+    --tejcart-csw-border-strong: #cbd5e1;
+    --tejcart-csw-hover: #f8fafc;
+    --tejcart-csw-active: #eff6ff;
+    --tejcart-csw-active-fg: #2563eb;
+    --tejcart-csw-ring: rgba(37, 99, 235, 0.18);
+    --tejcart-csw-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --tejcart-csw-shadow-md: 0 16px 36px -14px rgba(15, 23, 42, 0.18), 0 4px 10px -4px rgba(15, 23, 42, 0.06);
+    --tejcart-csw-radius: 12px;
+    --tejcart-csw-radius-sm: 8px;
+    --tejcart-csw-flag-radius: 4px;
+    --tejcart-csw-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    color: var(--tejcart-csw-fg);
+    font-family: var(--tejcart-csw-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.2;
+}
+
+.tejcart-csw-dropdown *,
+.tejcart-csw-dropdown *::before,
+.tejcart-csw-dropdown *::after,
+.tejcart-csw-sidebar *,
+.tejcart-csw-sidebar *::before,
+.tejcart-csw-sidebar *::after {
+    box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+    .tejcart-csw-dropdown,
+    .tejcart-csw-sidebar {
+        --tejcart-csw-bg: #0f172a;
+        --tejcart-csw-fg: #e2e8f0;
+        --tejcart-csw-muted: #94a3b8;
+        --tejcart-csw-border: #1f2937;
+        --tejcart-csw-border-strong: #334155;
+        --tejcart-csw-hover: #111c33;
+        --tejcart-csw-active: #1e293b;
+        --tejcart-csw-active-fg: #a5b4fc;
+        --tejcart-csw-ring: rgba(165, 180, 252, 0.28);
+        --tejcart-csw-shadow-md: 0 12px 28px -10px rgba(0, 0, 0, 0.55), 0 4px 10px -4px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* --- shared flag chip -------------------------------------------------- */
+
+.tejcart-csw-dropdown .tejcart-csw-flag-svg,
+.tejcart-csw-sidebar .tejcart-csw-flag-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__flag,
+.tejcart-csw-sidebar .tejcart-csw-sidebar__flag {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 22px;
+    height: 16px;
+    overflow: hidden;
+    border-radius: var(--tejcart-csw-flag-radius);
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+    line-height: 0;
+}
+
+/* --- dropdown ---------------------------------------------------------- */
+
+.tejcart-csw-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__select {
+    /* Hidden visually; preserved for non-JS / screen-reader fallback. */
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 8px 12px;
+    width: auto;
+    min-height: 38px;
+    background: var(--tejcart-csw-bg);
+    border: 1px solid var(--tejcart-csw-border);
+    border-radius: 999px;
+    box-shadow: var(--tejcart-csw-shadow-sm);
+    color: var(--tejcart-csw-fg);
+    font-family: var(--tejcart-csw-font);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    text-decoration: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease, transform 120ms ease;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__trigger:hover {
+    background: var(--tejcart-csw-bg);
+    border-color: var(--tejcart-csw-border-strong);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__trigger:focus {
+    outline: none;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__trigger:focus-visible {
+    outline: none;
+    border-color: var(--tejcart-csw-active-fg);
+    box-shadow: 0 0 0 3px var(--tejcart-csw-ring);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__trigger:active {
+    transform: scale(0.98);
+}
+
+.tejcart-csw-dropdown.is-open .tejcart-csw-dropdown__trigger {
+    background: var(--tejcart-csw-bg);
+    border-color: var(--tejcart-csw-active-fg);
+    box-shadow: 0 0 0 3px var(--tejcart-csw-ring);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__code {
+    display: inline-block;
+    color: var(--tejcart-csw-fg);
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 2px;
+    color: var(--tejcart-csw-muted);
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 140ms ease;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__chevron svg {
+    display: block;
+    width: 10px;
+    height: 6px;
+}
+
+.tejcart-csw-dropdown.is-open .tejcart-csw-dropdown__chevron {
+    color: var(--tejcart-csw-active-fg);
+    transform: rotate(180deg);
+}
+
+/* --- loading state ----------------------------------------------------- */
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__trigger {
+    cursor: progress;
+    color: transparent;
+    pointer-events: none;
+}
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__trigger > * {
+    visibility: hidden;
+}
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__trigger::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid var(--tejcart-csw-border-strong);
+    border-top-color: var(--tejcart-csw-active-fg);
+    border-radius: 50%;
+    visibility: visible;
+    animation: tejcartCswSpin 720ms linear infinite;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__trigger {
+    position: relative;
+}
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__list {
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__option {
+    cursor: progress;
+}
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__option.is-active {
+    position: relative;
+}
+
+.tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__option.is-active::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+    margin-left: auto;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: tejcartCswSpin 720ms linear infinite;
+}
+
+@keyframes tejcartCswSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__trigger::after,
+    .tejcart-csw-dropdown.is-loading .tejcart-csw-dropdown__option.is-active::after {
+        animation-duration: 1800ms;
+    }
+}
+
+/* --- dropdown list ---------------------------------------------------- */
+
+/* Double-up the class to beat `.entry-content ul` etc. */
+.tejcart-csw-dropdown ul.tejcart-csw-dropdown__list,
+.tejcart-csw-dropdown .tejcart-csw-dropdown__list {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 1000;
+    margin: 0 !important;
+    padding: 6px !important;
+    min-width: 200px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--tejcart-csw-bg);
+    border: 1px solid var(--tejcart-csw-border);
+    border-radius: var(--tejcart-csw-radius);
+    box-shadow: var(--tejcart-csw-shadow-md);
+    list-style: none !important;
+    text-align: left;
+    animation: tejcartCswDropdownIn 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__list[hidden] {
+    display: none;
+}
+
+@keyframes tejcartCswDropdownIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.tejcart-csw-dropdown li.tejcart-csw-dropdown__option,
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin: 0 !important;
+    padding: 8px 10px !important;
+    border: 0;
+    border-radius: var(--tejcart-csw-radius-sm);
+    background: transparent;
+    color: var(--tejcart-csw-fg);
+    font-family: var(--tejcart-csw-font);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: left;
+    text-indent: 0;
+    cursor: pointer;
+    user-select: none;
+    list-style: none !important;
+    transition: background-color 120ms ease, color 120ms ease;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option::before,
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option::marker {
+    /* Defeat block-theme bullet pseudo-elements. */
+    content: none !important;
+    display: none !important;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option:hover,
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option.is-focus {
+    background: var(--tejcart-csw-hover);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option.is-active {
+    background: var(--tejcart-csw-active);
+    color: var(--tejcart-csw-active-fg);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option .tejcart-csw-dropdown__code {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    color: inherit;
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option .tejcart-csw-dropdown__symbol {
+    flex: 0 0 auto;
+    margin-left: auto;
+    color: var(--tejcart-csw-muted);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option .tejcart-csw-dropdown__symbol--text {
+    overflow: hidden;
+    max-width: 140px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option.is-active .tejcart-csw-dropdown__symbol {
+    color: var(--tejcart-csw-active-fg);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option .tejcart-csw-dropdown__check {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    color: var(--tejcart-csw-active-fg);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option .tejcart-csw-dropdown__check svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__option.is-active .tejcart-csw-dropdown__check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.tejcart-csw-dropdown .tejcart-csw-dropdown__submit {
+    /* Only shown inside <noscript>. Keep it minimally styled. */
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: var(--tejcart-csw-active-fg);
+    border: 0;
+    border-radius: var(--tejcart-csw-radius-sm);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Inline-on-product-summary placement: a bit of breathing room above the
+ * stock badge and add-to-cart button so the trigger reads as its own row
+ * rather than glued to the price. */
+.tejcart-csw-dropdown.tejcart-csw-switcher--product {
+    display: inline-flex;
+    margin: 14px 0 18px;
+}
+
+/* --- sidebar ----------------------------------------------------------- */
+
+.tejcart-csw-sidebar {
+    position: fixed;
+    top: 30vh;
+    z-index: 999;
+    padding: 6px;
+    background: var(--tejcart-csw-bg);
+    border: 1px solid var(--tejcart-csw-border);
+    border-radius: var(--tejcart-csw-radius);
+    box-shadow: var(--tejcart-csw-shadow-md);
+    font-size: 13px;
+}
+
+/* Float the switcher as a fully-rounded, fully-bordered card inset from
+ * the viewport edge. The previous flush variants squared off and removed
+ * the edge-side border, which read as a tab clipped against the browser
+ * edge; an inset float reads as a deliberate, polished control. */
+.tejcart-csw-sidebar.tejcart-csw-sidebar--left  { left: 16px; }
+.tejcart-csw-sidebar.tejcart-csw-sidebar--right { right: 16px; }
+
+/* Two-column pages (cart, checkout) and the shop grid center their
+ * content at --tejcart-container-max (1200px). Between the mobile
+ * bottom-sheet breakpoint (<=768px) and the width at which the centered
+ * content leaves a wide-enough gutter for the floating tab (~1440px), a
+ * viewport-fixed right/left switcher unavoidably overlaps the order-
+ * summary card / grid edge. Hide it in that band so it never covers
+ * content; the mobile FAB and the >=1440px gutter tab are unaffected. */
+@media (min-width: 769px) and (max-width: 1439px) {
+    .tejcart-csw-sidebar {
+        display: none;
+    }
+}
+
+.tejcart-csw-sidebar.tejcart-csw-sidebar--compact { padding: 4px; }
+
+.tejcart-csw-sidebar ul.tejcart-csw-sidebar__list,
+.tejcart-csw-sidebar .tejcart-csw-sidebar__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.tejcart-csw-sidebar li.tejcart-csw-sidebar__item,
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item::before,
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item::marker {
+    content: none !important;
+    display: none !important;
+}
+
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: var(--tejcart-csw-radius-sm);
+    color: var(--tejcart-csw-fg);
+    text-decoration: none;
+    transition: background-color 120ms ease, color 120ms ease;
+}
+
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item a:hover,
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item a:focus-visible {
+    background: var(--tejcart-csw-hover);
+    color: var(--tejcart-csw-fg);
+    outline: none;
+}
+
+.tejcart-csw-sidebar .tejcart-csw-sidebar__item.is-active a {
+    background: var(--tejcart-csw-active);
+    color: var(--tejcart-csw-active-fg);
+    font-weight: 600;
+}
+
+.tejcart-csw-sidebar .tejcart-csw-sidebar__code {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.tejcart-csw-sidebar .tejcart-csw-sidebar__symbol {
+    margin-left: auto;
+    color: var(--tejcart-csw-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.tejcart-csw-sidebar.tejcart-csw-sidebar--compact .tejcart-csw-sidebar__item a {
+    padding: 4px 6px;
+    gap: 6px;
+}
+
+.tejcart-csw-sidebar.tejcart-csw-sidebar--compact .tejcart-csw-sidebar__code,
+.tejcart-csw-sidebar.tejcart-csw-sidebar--compact .tejcart-csw-sidebar__symbol { display: none; }
+
+/* --- checkout notice (unchanged behaviour, modernised styling) -------- */
+
+.tejcart-csw-checkout-notice {
+    margin: 1em 0;
+    padding: 0.75em 1em;
+    border-left: 4px solid var(--tejcart-info, #4338ca);
+    background: var(--tejcart-info-bg, #eef2ff);
+    border-radius: 6px;
+    color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+    .tejcart-csw-checkout-notice {
+        border-left-color: var(--tejcart-info-dark, #a5b4fc);
+        background: var(--tejcart-info-bg-dark, #1e293b);
+    }
+}
+
+/* --- responsive -------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__list {
+        animation: none;
+    }
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__chevron,
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__option .tejcart-csw-dropdown__check {
+        transition: none;
+    }
+}
+
+/* Mobile-only FAB pill + sheet header are baseline-hidden on desktop. */
+.tejcart-csw-sidebar__fab,
+.tejcart-csw-sidebar__sheet-header {
+    display: none;
+}
+
+/* --- mobile bottom-sheet UI (<= 768px) ---------------------------------
+ * On touch viewports the dropdown popover and the auto-injected sidebar
+ * both collapse to a single industry-standard pattern: a small floating
+ * trigger that opens the option list as a slide-up bottom sheet with a
+ * dimmed backdrop, 44px tap targets, and safe-area-aware bottom padding.
+ * The desktop popover/sidebar markup is reused — only the layout flips. */
+@media (max-width: 768px) {
+    /* Lock the page behind an open sheet. */
+    body.tejcart-csw-sheet-open {
+        overflow: hidden;
+    }
+    body.tejcart-csw-sheet-open::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 998;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        animation: tejcartCswBackdropIn 200ms ease;
+        pointer-events: none;
+    }
+    @keyframes tejcartCswBackdropIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* ---- Dropdown -> bottom sheet ---- */
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__list {
+        position: fixed;
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        max-height: 80vh;
+        margin: 0 !important;
+        padding: 6px 8px max(16px, env(safe-area-inset-bottom)) !important;
+        border-width: 1px 0 0 0;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -16px 36px -14px rgba(15, 23, 42, 0.25);
+        animation: tejcartCswSheetIn 260ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__list::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 4px;
+        margin: 6px auto 10px;
+        background: var(--tejcart-csw-border-strong);
+        border-radius: 999px;
+    }
+    @keyframes tejcartCswSheetIn {
+        from { transform: translateY(100%); }
+        to   { transform: translateY(0); }
+    }
+    /* Bigger tap targets in the sheet. */
+    .tejcart-csw-dropdown li.tejcart-csw-dropdown__option,
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__option {
+        padding: 12px 14px !important;
+        min-height: 48px;
+        font-size: 15px;
+    }
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__flag {
+        width: 26px;
+        height: 18px;
+    }
+
+    /* ---- Sidebar -> FAB pill + bottom sheet ---- */
+    .tejcart-csw-sidebar {
+        position: fixed;
+        top: auto;
+        bottom: max(16px, env(safe-area-inset-bottom));
+        left: auto;
+        right: 16px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        font-size: 14px;
+    }
+    .tejcart-csw-sidebar.tejcart-csw-sidebar--left {
+        left: 16px;
+        right: auto;
+    }
+    .tejcart-csw-sidebar.tejcart-csw-sidebar--left,
+    .tejcart-csw-sidebar.tejcart-csw-sidebar--right {
+        border-radius: 0;
+        border-width: 0;
+    }
+
+    .tejcart-csw-sidebar__fab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 44px;
+        margin: 0;
+        padding: 0 16px;
+        background: var(--tejcart-csw-bg);
+        color: var(--tejcart-csw-fg);
+        border: 1px solid var(--tejcart-csw-border);
+        border-radius: 999px;
+        box-shadow: var(--tejcart-csw-shadow-md);
+        font: 600 14px/1 var(--tejcart-csw-font);
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 120ms, box-shadow 160ms, background-color 160ms;
+    }
+    .tejcart-csw-sidebar__fab:active {
+        transform: scale(0.97);
+    }
+    .tejcart-csw-sidebar__fab:focus {
+        outline: 0;
+    }
+    .tejcart-csw-sidebar__fab:focus-visible {
+        outline: 0;
+        box-shadow: var(--tejcart-csw-shadow-md), 0 0 0 3px var(--tejcart-csw-ring);
+    }
+    .tejcart-csw-sidebar__fab-flag {
+        display: inline-flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 17px;
+        overflow: hidden;
+        border-radius: var(--tejcart-csw-flag-radius);
+        background: var(--tejcart-csw-bg, #fff);
+        box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+        line-height: 0;
+    }
+    .tejcart-csw-sidebar__fab-flag .tejcart-csw-flag-svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .tejcart-csw-sidebar__fab-code {
+        font-weight: 600;
+        letter-spacing: 0.04em;
+    }
+    .tejcart-csw-sidebar__fab-chevron {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 12px;
+        height: 12px;
+        color: var(--tejcart-csw-muted);
+        transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tejcart-csw-sidebar__fab-chevron svg {
+        display: block;
+        width: 10px;
+        height: 6px;
+    }
+    .tejcart-csw-sidebar.is-open .tejcart-csw-sidebar__fab-chevron {
+        transform: rotate(180deg);
+    }
+
+    /* The full list becomes a hidden bottom sheet, shown when is-open. */
+    .tejcart-csw-sidebar .tejcart-csw-sidebar__list,
+    .tejcart-csw-sidebar ul.tejcart-csw-sidebar__list {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        margin: 0 !important;
+        padding: 0 8px max(16px, env(safe-area-inset-bottom)) !important;
+        background: var(--tejcart-csw-bg);
+        border: 1px solid var(--tejcart-csw-border);
+        border-width: 1px 0 0 0;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -16px 36px -14px rgba(15, 23, 42, 0.25);
+        max-height: 80vh;
+        overflow-y: auto;
+        transform: translateY(100%);
+        transition: transform 260ms cubic-bezier(0.32, 0.72, 0, 1);
+        pointer-events: none;
+    }
+    .tejcart-csw-sidebar.is-open .tejcart-csw-sidebar__list {
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .tejcart-csw-sidebar .tejcart-csw-sidebar__sheet-header {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1001;
+        padding: 10px 16px 8px;
+        background: var(--tejcart-csw-bg);
+        border-radius: 18px 18px 0 0;
+        transform: translateY(100%);
+        transition: transform 260ms cubic-bezier(0.32, 0.72, 0, 1);
+        pointer-events: none;
+    }
+    .tejcart-csw-sidebar.is-open .tejcart-csw-sidebar__sheet-header {
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .tejcart-csw-sidebar.is-open .tejcart-csw-sidebar__list {
+        padding-top: 56px !important; /* leave room for the sticky header */
+    }
+    .tejcart-csw-sidebar__sheet-grabber {
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        width: 36px;
+        height: 4px;
+        margin-left: -18px;
+        background: var(--tejcart-csw-border-strong);
+        border-radius: 999px;
+    }
+    .tejcart-csw-sidebar__sheet-title {
+        flex: 1 1 auto;
+        margin-top: 8px;
+        font: 600 15px/1.2 var(--tejcart-csw-font);
+        color: var(--tejcart-csw-fg);
+    }
+    .tejcart-csw-sidebar__sheet-close {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin: 4px -8px 0 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        border-radius: 999px;
+        color: var(--tejcart-csw-muted);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .tejcart-csw-sidebar__sheet-close:active {
+        background: var(--tejcart-csw-hover);
+    }
+    .tejcart-csw-sidebar__sheet-close svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Bigger tap targets in the sidebar sheet. */
+    .tejcart-csw-sidebar li.tejcart-csw-sidebar__item a,
+    .tejcart-csw-sidebar .tejcart-csw-sidebar__item a {
+        padding: 12px 14px !important;
+        min-height: 48px;
+        gap: 12px;
+        font-size: 15px;
+    }
+    .tejcart-csw-sidebar.tejcart-csw-sidebar--compact .tejcart-csw-sidebar__code,
+    .tejcart-csw-sidebar.tejcart-csw-sidebar--compact .tejcart-csw-sidebar__symbol {
+        display: inline; /* compact design loses its meaning inside a sheet */
+    }
+
+    /* Active row in the mobile sheet gets a stronger visual highlight
+     * so the customer can see which currency is currently selected. */
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__option.is-active {
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    .tejcart-csw-dropdown .tejcart-csw-dropdown__list,
+    .tejcart-csw-sidebar .tejcart-csw-sidebar__list,
+    .tejcart-csw-sidebar .tejcart-csw-sidebar__sheet-header {
+        animation: none;
+        transition: none;
+    }
+}

@@ -1,0 +1,259 @@
+/**
+ * TejCart Order Tracking — admin metabox + settings styles.
+ *
+ * The Order Tracking admin pages opt into core's `tejcart-admin.css`
+ * bundle via the `tejcart_admin_page_hooks` filter, so the `--nc-*`
+ * design tokens, card, and pill primitives are inherited from the
+ * single source of truth. This stylesheet only carries module-specific
+ * layout polish that core doesn't cover.
+ *
+ * Tracking-status pill colours are defined as local custom properties
+ * so a theme or dark-mode layer can override them in one place.
+ */
+
+.tejcart-card--tracking {
+    /* ---- status-pill palette (bg / fg pairs) ----
+       Wired to --nc-* parent tokens where a semantic match exists;
+       status-specific tints that have no parent token keep their
+       original hex as fallback so a dark-mode layer can override
+       just the local custom property in one place. */
+    --tejcart-tracking-status-default-bg:          var(--nc-border, #e5e7eb);
+    --tejcart-tracking-status-default-fg:          var(--nc-text, #1f2937);
+    --tejcart-tracking-status-pending-bg:          var(--nc-bg-subtle, #f3f4f6);
+    --tejcart-tracking-status-pending-fg:          var(--nc-text-secondary, #374151);
+    --tejcart-tracking-status-label-created-bg:    var(--nc-warning-bg, #fef3c7);
+    --tejcart-tracking-status-label-created-fg:    #92400e;
+    --tejcart-tracking-status-shipped-bg:          var(--nc-info-bg, #dbeafe);
+    --tejcart-tracking-status-shipped-fg:          #1e3a8a;
+    --tejcart-tracking-status-in-transit-bg:       var(--nc-info-bg, #dbeafe);
+    --tejcart-tracking-status-in-transit-fg:       #1e3a8a;
+    --tejcart-tracking-status-out-for-delivery-bg: #ede9fe;
+    --tejcart-tracking-status-out-for-delivery-fg: #5b21b6;
+    --tejcart-tracking-status-delivered-bg:        var(--nc-success-bg, #d1fae5);
+    --tejcart-tracking-status-delivered-fg:        var(--nc-success, #065f46);
+    --tejcart-tracking-status-exception-bg:        var(--nc-error-bg, #fee2e2);
+    --tejcart-tracking-status-exception-fg:        var(--nc-error, #991b1b);
+    --tejcart-tracking-status-returned-bg:         var(--nc-warning-bg, #fde68a);
+    --tejcart-tracking-status-returned-fg:         #78350f;
+}
+
+.tejcart-card--tracking .tejcart-tracking-table {
+    margin-bottom: 16px;
+}
+
+.tejcart-card--tracking .tejcart-tracking-row__actions {
+    text-align: right;
+    white-space: nowrap;
+    width: 1%; /* shrink-to-content */
+}
+
+.tejcart-card--tracking .tejcart-tracking-status-select {
+    margin-right: 6px;
+    max-width: 160px;
+    font-size: 12px;
+}
+
+.tejcart-card--tracking [data-tejcart-tracking-pill] {
+    vertical-align: middle;
+}
+
+.tejcart-card--tracking [data-tejcart-tracking-edit],
+.tejcart-card--tracking [data-tejcart-tracking-repoll] {
+    margin-right: 8px;
+}
+
+.tejcart-card--tracking .tejcart-status-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--tejcart-tracking-status-default-bg, #e5e7eb);
+    color: var(--nc-text, #1f2937);
+    line-height: 1.6;
+}
+.tejcart-card--tracking .tejcart-status-pill--pending          { background: var(--tejcart-tracking-status-pending-bg, #f3f4f6);          color: var(--tejcart-tracking-status-pending-fg, #374151); }
+.tejcart-card--tracking .tejcart-status-pill--label_created    { background: var(--tejcart-tracking-status-label-created-bg, #fef3c7);    color: var(--tejcart-tracking-status-label-created-fg, #92400e); }
+.tejcart-card--tracking .tejcart-status-pill--shipped          { background: var(--tejcart-tracking-status-shipped-bg, #dbeafe);          color: var(--tejcart-tracking-status-shipped-fg, #1e3a8a); }
+.tejcart-card--tracking .tejcart-status-pill--in_transit       { background: var(--tejcart-tracking-status-in-transit-bg, #dbeafe);       color: var(--tejcart-tracking-status-in-transit-fg, #1e3a8a); }
+.tejcart-card--tracking .tejcart-status-pill--out_for_delivery { background: var(--tejcart-tracking-status-out-for-delivery-bg, #ede9fe); color: var(--tejcart-tracking-status-out-for-delivery-fg, #5b21b6); }
+.tejcart-card--tracking .tejcart-status-pill--delivered        { background: var(--tejcart-tracking-status-delivered-bg, #d1fae5);        color: var(--tejcart-tracking-status-delivered-fg, #065f46); }
+.tejcart-card--tracking .tejcart-status-pill--exception        { background: var(--tejcart-tracking-status-exception-bg, #fee2e2);        color: var(--tejcart-tracking-status-exception-fg, #991b1b); }
+.tejcart-card--tracking .tejcart-status-pill--returned         { background: var(--tejcart-tracking-status-returned-bg, #fde68a);         color: var(--tejcart-tracking-status-returned-fg, #78350f); }
+
+.tejcart-tracking-form {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--nc-border, #e5e7eb);
+}
+.tejcart-tracking-form h4 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--nc-text-secondary, #6b7280);
+}
+.tejcart-tracking-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.tejcart-tracking-form__row label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--nc-text-secondary, #4b5563);
+}
+.tejcart-tracking-form__row input,
+.tejcart-tracking-form__row select {
+    width: 100%;
+    box-sizing: border-box;
+}
+.tejcart-tracking-form__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.tejcart-tracking-feedback {
+    font-size: 12px;
+}
+.tejcart-tracking-feedback--ok    { color: var(--nc-success, #047857); }
+.tejcart-tracking-feedback--error { color: var(--nc-error, #b91c1c); }
+
+@media (max-width: 600px) {
+    .tejcart-tracking-form__row { grid-template-columns: 1fr; }
+}
+
+/* Order Tracking — Settings tab body. */
+
+/* Constrain the tab content to a comfortable reading width — full-viewport
+   cards waste horizontal real-estate on wide monitors and force the eye to
+   track too far between the label column and the input. ~880px keeps the
+   form-table label/value pairs visually grouped, matching the density of
+   other TejCart settings panels. */
+.tejcart-ot-settings-content {
+    max-width: 880px;
+}
+
+/* Suppress Edge/IE native password-reveal and clear controls — they render as a
+   chunky red pill inside our encrypted-credential inputs and clash with the
+   surrounding admin styling. */
+.tejcart-ot-secret::-ms-reveal,
+.tejcart-ot-secret::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.tejcart-ot-providers th {
+    width: 140px;
+}
+.tejcart-ot-providers .tejcart-ot-provider-row td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-top: 1px solid var(--nc-border-light, #f1f5f9);
+}
+.tejcart-ot-providers .tejcart-ot-provider-row:first-child td,
+.tejcart-ot-providers .tejcart-ot-provider-row:first-child th {
+    border-top: 0;
+}
+.tejcart-ot-providers .tejcart-ot-provider-row th {
+    padding-top: 14px;
+    border-top: 1px solid var(--nc-border-light, #f1f5f9);
+}
+.tejcart-ot-providers .tejcart-ot-provider-row--webhook td,
+.tejcart-ot-providers .tejcart-ot-provider-row--webhook th {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.tejcart-ot-field-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.tejcart-ot-field-row .regular-text {
+    flex: 1 1 320px;
+    min-width: 240px;
+    max-width: 420px;
+}
+
+.tejcart-ot-test-result {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 12px;
+    min-height: 0;
+}
+.tejcart-ot-test-result:empty {
+    display: none;
+}
+.tejcart-ot-test-result.is-ok    { color: var(--nc-success, #047857); }
+.tejcart-ot-test-result.is-error { color: var(--nc-error, #b91c1c); }
+
+.tejcart-ot-credentials-help {
+    margin: 0 0 16px;
+}
+
+.tejcart-ot-sample {
+    background: var(--nc-bg-subtle, #f6f7f7);
+    border: 1px solid var(--nc-border, #e5e7eb);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.tejcart-settings-panel .tejcart-card + .tejcart-card {
+    margin-top: 16px;
+}
+
+.tejcart-ot-mode-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+}
+.tejcart-ot-mode-badge--live {
+    background: var(--nc-success-bg, #ecfdf5);
+    color: var(--nc-success, #047857);
+    border: 1px solid var(--nc-success, #a7f3d0);
+}
+.tejcart-ot-mode-badge--test {
+    background: var(--nc-warning-bg, #fef3c7);
+    color: var(--nc-warning, #92400e);
+    border: 1px solid var(--nc-warning, #fcd34d);
+}
+.tejcart-ot-mode-badge--inactive {
+    background: var(--nc-bg-subtle, #f3f4f6);
+    color: var(--nc-text-secondary, #6b7280);
+    border: 1px solid var(--nc-border, #d1d5db);
+}
+.tejcart-ot-credentials-heading {
+    margin: 16px 0 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--nc-heading, #1f2937);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.tejcart-ot-provider-row--heading th {
+    padding-top: 8px;
+    padding-bottom: 0;
+    border-top: 1px solid var(--nc-border, #e5e7eb);
+}
+.tejcart-ot-providers--mode {
+    margin-bottom: 0;
+}

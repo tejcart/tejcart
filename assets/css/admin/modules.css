@@ -1,0 +1,378 @@
+/**
+ * TejCart → Modules admin page (card-grid redesign).
+ *
+ * Mirrors the design tokens defined in assets/css/tejcart-admin.css (--nc-*)
+ * and the toggle-switch geometry from .tejcart-toggle (lines ~1641-1701).
+ * Enqueued by Modules_Page::enqueue_assets() only on the Modules screen.
+ */
+
+.nxc-modules--cards {
+    max-width: 1200px;
+}
+
+.nxc-modules--cards .nxc-page-header {
+    margin: 12px 0 18px;
+}
+.nxc-modules--cards .nxc-page-header h1 {
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--nc-heading);
+    margin: 0 0 4px;
+    padding: 0;
+}
+.nxc-modules--cards .nxc-page-header__subtitle {
+    font-size: 13px;
+    color: var(--nc-text-secondary);
+    margin: 0;
+}
+
+/* ---------- Filter chips -------------------------------------------------- */
+
+.nxc-modules-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 24px;
+}
+.nxc-modules-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--nc-bg-white);
+    border: 1px solid var(--nc-border);
+    color: var(--nc-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--nc-transition);
+}
+.nxc-modules-chip:hover,
+.nxc-modules-chip:focus {
+    background: var(--nc-bg-subtle);
+    color: var(--nc-text);
+    border-color: var(--nc-text-muted);
+    box-shadow: none;
+}
+.nxc-modules-chip:focus-visible {
+    outline: 2px solid var(--nc-border-focus);
+    outline-offset: 2px;
+}
+.nxc-modules-chip.is-active {
+    background: var(--nc-primary);
+    border-color: var(--nc-primary);
+    color: #fff;
+}
+.nxc-modules-chip.is-active:hover {
+    background: var(--nc-primary-dark);
+    border-color: var(--nc-primary-dark);
+    color: #fff;
+}
+.nxc-modules-chip__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 20px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: var(--nc-bg-subtle);
+    color: var(--nc-text-secondary);
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1;
+}
+.nxc-modules-chip.is-active .nxc-modules-chip__count {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+
+/* ---------- Category section --------------------------------------------- */
+
+.nxc-modules-section {
+    margin: 0 0 32px;
+}
+.nxc-modules-section__header {
+    margin: 0 0 14px;
+}
+.nxc-modules-section__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--nc-heading);
+    margin: 0 0 4px;
+    padding: 0;
+}
+.nxc-modules-section__copy {
+    margin: 0;
+    font-size: 13px;
+    color: var(--nc-text-secondary);
+}
+
+/* ---------- Grid + card --------------------------------------------------- */
+
+.nxc-modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+@media (max-width: 1100px) {
+    .nxc-modules-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.nxc-module-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--nc-bg-card);
+    border: 1px solid var(--nc-border);
+    border-radius: var(--nc-radius-lg);
+    padding: 20px;
+    transition: var(--nc-transition);
+    position: relative;
+}
+.nxc-module-card:hover {
+    border-color: var(--nc-text-muted);
+    box-shadow: var(--nc-shadow-sm);
+}
+.nxc-module-card.is-enabled {
+    border-color: var(--nc-success);
+    box-shadow: 0 0 0 1px var(--nc-success);
+}
+.nxc-module-card.is-enabled:hover {
+    box-shadow: 0 0 0 1px var(--nc-success), var(--nc-shadow-sm);
+}
+
+.nxc-module-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 14px;
+}
+.nxc-module-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--nc-bg-subtle);
+    color: var(--nc-text);
+    flex: 0 0 auto;
+}
+.nxc-module-card.is-enabled .nxc-module-card__icon {
+    background: var(--nc-success-bg);
+    color: var(--nc-success);
+}
+.nxc-module-card__icon .dashicons {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    line-height: 22px;
+}
+
+.nxc-module-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+.nxc-module-card__badge {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+.nxc-module-card__badge--recommended {
+    background: var(--nc-info-bg);
+    color: var(--nc-info);
+}
+.nxc-module-card__badge--setup {
+    background: var(--nc-warning-bg);
+    color: var(--nc-warning);
+}
+
+.nxc-module-card__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--nc-heading);
+    margin: 0 0 6px;
+    padding: 0;
+    line-height: 1.35;
+}
+.nxc-module-card__description {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--nc-text-secondary);
+    margin: 0 0 18px;
+    flex: 1 1 auto;
+}
+
+.nxc-module-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--nc-border-light);
+}
+.nxc-module-card__form {
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- Toggle (button styled as iOS switch) ------------------------- */
+
+.nxc-module-card__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--nc-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.nxc-module-card__toggle:focus {
+    outline: none;
+    box-shadow: none;
+}
+.nxc-module-card__toggle:focus-visible .nxc-module-card__toggle-track {
+    box-shadow: 0 0 0 3px var(--nc-primary-glow);
+}
+.nxc-module-card__toggle-track {
+    position: relative;
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 20px;
+    background: #d1d5db;
+    border-radius: 999px;
+    transition: background .2s ease, box-shadow .2s ease;
+}
+.nxc-module-card__toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    transition: transform .2s ease;
+}
+.nxc-module-card__toggle:hover .nxc-module-card__toggle-track {
+    background: #b9bcc1;
+}
+.nxc-module-card__toggle[aria-pressed="true"] .nxc-module-card__toggle-track {
+    background: var(--nc-primary);
+}
+.nxc-module-card__toggle[aria-pressed="true"] .nxc-module-card__toggle-knob {
+    transform: translateX(16px);
+}
+.nxc-module-card__toggle[aria-pressed="true"]:hover .nxc-module-card__toggle-track {
+    background: var(--nc-primary-dark);
+}
+.nxc-module-card__toggle[aria-pressed="true"] .nxc-module-card__toggle-text {
+    color: var(--nc-text);
+    font-weight: 600;
+}
+[dir="rtl"] .nxc-module-card__toggle[aria-pressed="true"] .nxc-module-card__toggle-knob {
+    transform: translateX(-16px);
+}
+
+/* ---------- Configure link ----------------------------------------------- */
+
+.nxc-module-card__configure {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--nc-text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: var(--nc-radius-sm);
+    padding: 4px 2px;
+    transition: var(--nc-transition);
+}
+.nxc-module-card__configure:hover,
+.nxc-module-card__configure:focus {
+    color: var(--nc-primary);
+    text-decoration: underline;
+}
+.nxc-module-card__configure:focus-visible {
+    outline: 2px solid var(--nc-border-focus);
+    outline-offset: 2px;
+}
+
+/* ---------- Empty state --------------------------------------------------- */
+
+.nxc-modules-empty {
+    text-align: center;
+    padding: 48px 24px;
+    background: var(--nc-bg-white);
+    border: 1px dashed var(--nc-border);
+    border-radius: var(--nc-radius-lg);
+}
+.nxc-modules-empty__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--nc-bg-subtle);
+    color: var(--nc-text-secondary);
+    margin: 0 auto 12px;
+}
+.nxc-modules-empty__icon .dashicons {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+    line-height: 28px;
+}
+.nxc-modules-empty__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--nc-heading);
+    margin: 0 0 6px;
+}
+.nxc-modules-empty__copy {
+    font-size: 13px;
+    color: var(--nc-text-secondary);
+    margin: 0 0 16px;
+}
+.nxc-modules-empty__link {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--nc-primary);
+    color: #fff;
+    border-radius: var(--nc-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--nc-transition);
+}
+.nxc-modules-empty__link:hover,
+.nxc-modules-empty__link:focus {
+    background: var(--nc-primary-dark);
+    color: #fff;
+}
+.nxc-modules-empty__link:focus-visible {
+    outline: 2px solid var(--nc-border-focus);
+    outline-offset: 2px;
+}

@@ -1,0 +1,519 @@
+/**
+ * TejCart Express Checkout Component Styles
+ *
+ * Flat layout: a centered "Express checkout" divider,
+ * a tight row of equally-flexible wallet buttons, and (on the
+ * checkout page) an uppercase "OR" divider before the form.
+ *
+ * Loaded on every surface that renders the Express Checkout component
+ * (product page, cart page, side cart, checkout page). Depends on
+ * design tokens declared in tejcart-public.css.
+ *
+ * The button container has an explicit reserved min-height so CLS
+ * stays at 0 while the PayPal SDK is loading.
+ *
+ * @package TejCart
+ */
+
+/* ------------------------------------------------------------------
+ * 1. Wrapper
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tejcart-space-3);
+    margin: var(--tejcart-space-3) 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+    animation: tejcart-express-entrance 0.32s var(--tejcart-ease) both;
+}
+
+.tejcart-express-checkout--top {
+    margin: 0;
+    padding-top: var(--tejcart-space-6);
+    gap: var(--tejcart-space-4);
+}
+
+@keyframes tejcart-express-entrance {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ------------------------------------------------------------------
+ * 2. Header — flat "Express checkout" divider
+ *
+ * A thin hairline rule with a sentence-case label centered on top.
+ * No background pill behind the label — the rules butt against the
+ * label via `gap` on the flex parent.
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-checkout-header {
+    display: flex;
+    align-items: center;
+    gap: var(--tejcart-space-3);
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.tejcart-express-checkout-header::before,
+.tejcart-express-checkout-header::after {
+    content: "";
+    flex: 1 1 0;
+    min-width: 0;
+    height: 1px;
+    background: var(--tejcart-border);
+}
+
+.tejcart-express-checkout-header > .tejcart-express-checkout-title {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: var(--tejcart-font-weight-medium, 500);
+    color: var(--tejcart-text-muted);
+    line-height: 1;
+    letter-spacing: 0;
+    /* Sentence case here, NOT uppercase. */
+    text-transform: none;
+    white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+ * 3. Button row
+ *
+ * Equal-flex children, 48px tall, 10px gap. min-width:0 prevents the
+ * PayPal SDK iframe from blowing the row out at narrow widths.
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-checkout-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--tejcart-space-2);
+    min-height: 45px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    position: relative;
+}
+
+.tejcart-express-checkout-buttons > div[id^="tejcart-"],
+.tejcart-express-checkout-buttons .tejcart-product-paypal-btn,
+.tejcart-express-checkout-buttons .tejcart-product-venmo-btn,
+.tejcart-express-checkout-buttons .tejcart-product-googlepay-btn,
+.tejcart-express-checkout-buttons .tejcart-product-applepay-btn {
+    display: block;
+    flex: 1 1 0;
+    min-width: 152px;
+    min-height: 45px;
+    box-sizing: border-box;
+}
+
+/* Checkout-page top variant uses a slightly tighter
+ * grid: 48px tall buttons, 10px gap, and min-width: 0 so the row
+ * stays one line at narrow viewports. */
+.tejcart-express-checkout--top .tejcart-express-checkout-buttons {
+    gap: 10px;
+    min-height: 48px;
+}
+
+.tejcart-express-checkout--top .tejcart-express-checkout-buttons > div[id^="tejcart-"] {
+    min-width: 0;
+    min-height: 48px;
+}
+
+/*
+ * Cart-page sidebar and drawer surfaces stack the wallet buttons in
+ * a column. flex: 1 1 0 then grows each child along the *vertical*
+ * axis, stretching every button to fill the parent. Override to auto
+ * sizing so each button stays at its natural 48px height regardless
+ * of parent height.
+ */
+.tejcart-cart-express-zone > div[id^="tejcart-"],
+.tejcart-cart-smart-buttons > div[id^="tejcart-"],
+.tejcart-cart-drawer-express > div[id^="tejcart-"] {
+    flex: 0 0 auto;
+    min-width: 0;
+    width: 100%;
+    min-height: 45px;
+}
+
+@media (max-width: 479px) {
+    .tejcart-express-checkout-buttons > div[id^="tejcart-"],
+    .tejcart-express-checkout-buttons .tejcart-product-paypal-btn,
+    .tejcart-express-checkout-buttons .tejcart-product-venmo-btn,
+    .tejcart-express-checkout-buttons .tejcart-product-googlepay-btn,
+    .tejcart-express-checkout-buttons .tejcart-product-applepay-btn {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+}
+
+#tejcart-drawer-express-googlepay,
+#tejcart-cart-googlepay-btn,
+#tejcart-googlepay-container,
+.tejcart-product-googlepay-btn {
+    height: 45px;
+}
+
+#tejcart-express-googlepay {
+    height: 48px;
+}
+
+/* ------------------------------------------------------------------
+ * 4. Loading skeleton
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-checkout-skeleton {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--tejcart-space-2);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.tejcart-express-checkout-skeleton-row {
+    flex: 1 1 0;
+    min-width: 152px;
+    height: 45px;
+    background: var(--tejcart-bg-surface-alt);
+    border-radius: var(--tejcart-radius-md);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--tejcart-border-subtle);
+}
+
+.tejcart-express-checkout--top .tejcart-express-checkout-skeleton {
+    gap: 10px;
+}
+
+.tejcart-express-checkout--top .tejcart-express-checkout-skeleton-row {
+    min-width: 0;
+    height: 48px;
+}
+
+.tejcart-cart-express-zone > .tejcart-express-checkout-skeleton,
+.tejcart-cart-smart-buttons > .tejcart-express-checkout-skeleton,
+.tejcart-cart-drawer-express > .tejcart-express-checkout-skeleton {
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.tejcart-cart-express-zone .tejcart-express-checkout-skeleton-row,
+.tejcart-cart-smart-buttons .tejcart-express-checkout-skeleton-row,
+.tejcart-cart-drawer-express .tejcart-express-checkout-skeleton-row {
+    flex: 0 0 45px;
+    width: 100%;
+}
+
+@media (max-width: 479px) {
+    .tejcart-express-checkout-skeleton-row {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+}
+
+.tejcart-express-checkout-skeleton-row::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.55) 40%,
+        rgba(255, 255, 255, 0.55) 60%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: tejcart-shimmer 1.6s infinite var(--tejcart-ease-standard);
+}
+
+.tejcart-express-checkout-buttons.is-ready .tejcart-express-checkout-skeleton {
+    display: none;
+}
+
+/* ------------------------------------------------------------------
+ * 5. Wallet button host elements
+ * ------------------------------------------------------------------ */
+
+paypal-button,
+venmo-button,
+apple-pay-button,
+paypal-messages {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 45px;
+    box-sizing: border-box;
+}
+
+.tejcart-express-checkout--top paypal-button,
+.tejcart-express-checkout--top venmo-button,
+.tejcart-express-checkout--top apple-pay-button {
+    min-height: 48px;
+}
+
+paypal-messages {
+    min-height: 0;
+}
+
+.tejcart-express-checkout-buttons > div[id^="tejcart-"] > paypal-button + paypal-button,
+.tejcart-express-checkout-buttons > div[id^="tejcart-"] > paypal-button + venmo-button,
+.tejcart-express-checkout-buttons > div[id^="tejcart-"] > venmo-button + paypal-button {
+    margin-top: var(--tejcart-space-2);
+}
+
+#tejcart-paypal-button-container > paypal-button,
+#tejcart-paypal-button-container > venmo-button,
+#tejcart-cart-paypal-btn > paypal-button,
+#tejcart-cart-paypal-btn > venmo-button,
+[id^="tejcart-express-"] > paypal-button,
+[id^="tejcart-express-"] > venmo-button,
+[id^="tejcart-drawer-express-"] > paypal-button,
+[id^="tejcart-drawer-express-"] > venmo-button,
+[id^="tejcart-product-"] > paypal-button,
+[id^="tejcart-product-"] > venmo-button {
+    display: block;
+    width: 100%;
+}
+
+#tejcart-paypal-button-container > paypal-button + *,
+#tejcart-paypal-button-container > venmo-button + *,
+#tejcart-cart-paypal-btn > paypal-button + *,
+#tejcart-cart-paypal-btn > venmo-button + *,
+[id^="tejcart-express-"] > paypal-button + *,
+[id^="tejcart-express-"] > venmo-button + *,
+[id^="tejcart-drawer-express-"] > paypal-button + *,
+[id^="tejcart-drawer-express-"] > venmo-button + *,
+[id^="tejcart-product-"] > paypal-button + *,
+[id^="tejcart-product-"] > venmo-button + * {
+    margin-top: var(--tejcart-space-2);
+}
+
+/* ------------------------------------------------------------------
+ * 5b. Wallet legal disclaimer
+ *
+ * One shared "By continuing, you agree to the Terms" line for the whole
+ * wallet zone (the JS appends exactly one, never one per button). It is
+ * the last flex child; force it onto its own full-width row beneath the
+ * buttons. `flex: 0 0 auto` + `width: 100%` lays it out correctly in
+ * BOTH the horizontal express / product rows (the 100% main-size pushes
+ * it onto its own line) and the vertical cart / drawer stacks (where it
+ * is simply a full-width block). Base typography (centered, muted, xs)
+ * lives in tejcart-checkout.css.
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-checkout-buttons > .tejcart-wallet-button-disclaimer,
+.tejcart-product-smart-buttons > .tejcart-wallet-button-disclaimer {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    margin-top: 2px;
+}
+
+/* ------------------------------------------------------------------
+ * 6. Pay Later message
+ *
+ * !important is used on the critical properties because:
+ *   1. Other CSS files (tejcart-shop.css, tejcart-checkout.css) reset
+ *      `margin` via shorthand on more-specific selectors.
+ *   2. PayPal's <paypal-message> web component ships its own host /
+ *      shadow-DOM defaults that would otherwise stretch the box and
+ *      bake in a larger inline font size.
+ * ------------------------------------------------------------------ */
+
+.tejcart-paylater-message {
+    display: block !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    min-height: 0;
+    margin-top: var(--tejcart-space-2);
+    margin-right: auto !important;
+    margin-bottom: var(--tejcart-space-2);
+    margin-left: 0 !important;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    align-self: flex-start !important;
+    justify-self: start !important;
+    float: none !important;
+    clear: none !important;
+    font-size: 12px !important;
+    line-height: 1.4;
+    text-align: left !important;
+}
+
+.tejcart-paylater-message * {
+    font-size: 12px !important;
+    text-align: left !important;
+}
+
+.tejcart-paylater-message:empty,
+.tejcart-paylater-message[hidden] {
+    display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 7. Error banner
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-checkout-error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--tejcart-space-3);
+    padding: var(--tejcart-space-3) var(--tejcart-space-4);
+    background: var(--tejcart-warning-bg);
+    border: 1px solid var(--tejcart-warning-border);
+    border-radius: var(--tejcart-radius-md);
+    color: var(--tejcart-warning-fg);
+    font-size: var(--tejcart-font-size-sm);
+}
+
+.tejcart-express-checkout-error svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+}
+
+.tejcart-express-checkout-error-dismiss {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: var(--tejcart-font-size-lg);
+    cursor: pointer;
+    padding: 0 var(--tejcart-space-2);
+    line-height: 1;
+}
+
+/* ------------------------------------------------------------------
+ * 8. "OR" divider — sits between the express buttons and the form.
+ *
+ * Same divider geometry as the header, but the label is uppercase
+ * with a touch of letter-spacing.
+ * ------------------------------------------------------------------ */
+
+.tejcart-express-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--tejcart-space-3);
+    margin: var(--tejcart-space-4) 0;
+    color: var(--tejcart-text-muted);
+}
+
+.tejcart-express-divider::before,
+.tejcart-express-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--tejcart-border);
+}
+
+.tejcart-express-divider span {
+    flex: 0 0 auto;
+    padding: 0;
+    background: transparent;
+    color: var(--tejcart-text-muted);
+    font-size: 14px;
+    font-weight: var(--tejcart-font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+ * 9. Single-product page wallet row
+ *
+ * Same flat row used inside the product detail page.
+ * ------------------------------------------------------------------ */
+
+.tejcart-product-smart-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tejcart-space-2);
+    min-height: 45px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tejcart-product-smart-buttons[hidden] {
+    display: none;
+}
+
+.tejcart-product-smart-buttons > div[id^="tejcart-product-"] {
+    display: block;
+    flex: 1 1 0;
+    min-width: 152px;
+    min-height: 45px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 479px) {
+    .tejcart-product-smart-buttons > div[id^="tejcart-product-"] {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+}
+
+/* ------------------------------------------------------------------
+ * 10. Mobile / reduced motion
+ * ------------------------------------------------------------------ */
+
+@media (max-width: 599px) {
+    .tejcart-express-checkout {
+        gap: var(--tejcart-space-3);
+    }
+
+    .tejcart-express-checkout-header {
+        gap: var(--tejcart-space-3);
+    }
+
+    .tejcart-express-checkout-header > .tejcart-express-checkout-title {
+        font-size: 13px;
+    }
+
+    .tejcart-express-checkout-header {
+        gap: var(--tejcart-space-2);
+    }
+
+    .tejcart-express-divider {
+        margin: var(--tejcart-space-3) 0;
+        gap: var(--tejcart-space-2);
+    }
+
+    .tejcart-express-divider span {
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tejcart-express-checkout {
+        animation: none;
+    }
+
+    .tejcart-express-checkout-skeleton-row::after {
+        animation: none;
+    }
+}

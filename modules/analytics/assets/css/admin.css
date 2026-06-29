@@ -1,0 +1,93 @@
+/**
+ * TejCart Analytics — admin styling.
+ *
+ * The Analytics submenu now opts into core's `tejcart-admin.css` bundle
+ * via the `tejcart_admin_page_hooks` filter (see Analytics_Bootstrap::
+ * register_admin_page_hooks()), so it inherits `.tejcart-card`,
+ * `.tejcart-card-header`, `.tejcart-card-body`, `.tejcart-pill` /
+ * `.tejcart-pill--<tone>`, and the `--nc-*` design tokens for free.
+ *
+ * Everything in this file is module-specific layout polish that the
+ * core stylesheet doesn't cover — the driver tab strip, the required
+ * field marker, and a small tab-dot indicator. No card or pill rules
+ * are redeclared here; please don't reintroduce them.
+ */
+
+.tejcart-analytics-required {
+    color: var(--nc-error, #d63638);
+    margin-left: 2px;
+}
+
+.tejcart-analytics-reset-form {
+    margin-top: 1em;
+}
+
+.tejcart-settings-subnav.tejcart-analytics-tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--nc-border, #dcdcde);
+    margin: 18px 0;
+    padding: 0 0 0 2px;
+}
+
+.tejcart-analytics-tabs .tejcart-settings-subnav-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-bottom: -1px;
+    color: var(--nc-text-secondary, #50575e);
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: 4px 4px 0 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.tejcart-analytics-tabs .tejcart-settings-subnav-item:hover,
+.tejcart-analytics-tabs .tejcart-settings-subnav-item:focus {
+    color: var(--nc-info, #2271b1);
+    background: var(--nc-bg-subtle, #f6f7f7);
+}
+
+.tejcart-analytics-tabs .tejcart-settings-subnav-item.is-active {
+    color: var(--nc-heading, #1d2327);
+    background: var(--nc-bg-white, #fff);
+    border-color: var(--nc-border, #dcdcde);
+    border-bottom-color: var(--nc-bg-white, #fff);
+}
+
+.tejcart-analytics-tab-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--nc-success, #00a32a);
+    display: inline-block;
+}
+
+.tejcart-analytics-health {
+    margin-top: 12px;
+}
+
+.tejcart-analytics-health td code {
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.tejcart-analytics-health td small {
+    color: var(--nc-text-muted, #787c82);
+}
+
+.tejcart-analytics .tejcart-card + .tejcart-card {
+    margin-top: 16px;
+}
+
+.tejcart-analytics .form-table th {
+    width: 200px;
+}
+
+.tejcart-analytics .form-table input.regular-text {
+    max-width: 100%;
+}

@@ -1,0 +1,347 @@
+/**
+ * TejCart Variation Swatches — frontend styles.
+ *
+ * Uses --tejcart-* CSS custom properties from the core token system.
+ * See assets/css/tejcart-public.css :root for the full token list.
+ */
+
+/* ================================================================
+   Swatch wrapper
+   ================================================================ */
+
+.tejcart-swatches-wrapper {
+    margin: 0 0 var(--tejcart-space-sm, 12px);
+}
+
+.tejcart-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tejcart-space-xs, 8px);
+    align-items: center;
+}
+
+/* ================================================================
+   Individual swatch button
+   ================================================================ */
+
+.tejcart-swatch,
+.tejcart-swatches-wrapper button.tejcart-swatch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    border: 2px solid var(--tejcart-border, #e1e3e5) !important;
+    background: var(--tejcart-bg-surface, #ffffff) !important;
+    color: var(--tejcart-text, #202223) !important;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1;
+    text-decoration: none !important;
+    text-transform: none !important;
+    letter-spacing: normal;
+    box-shadow: none !important;
+}
+
+/* Shape variants */
+.tejcart-swatches--circle .tejcart-swatch {
+    border-radius: var(--tejcart-radius-pill, 999px);
+}
+
+.tejcart-swatches--square .tejcart-swatch {
+    border-radius: var(--tejcart-radius-xs, 4px);
+}
+
+.tejcart-swatches--rounded .tejcart-swatch {
+    border-radius: var(--tejcart-radius-md, 8px);
+}
+
+/* ================================================================
+   Color swatches
+   ================================================================ */
+
+.tejcart-swatch__color {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+/* ================================================================
+   Image swatches
+   ================================================================ */
+
+.tejcart-swatch--image {
+    overflow: hidden;
+    padding: 0;
+}
+
+.tejcart-swatch__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+/* ================================================================
+   Label / button swatches
+   ================================================================ */
+
+.tejcart-swatch--label {
+    width: auto;
+    min-width: 36px;
+    height: auto;
+    padding: var(--tejcart-space-2xs, 4px) var(--tejcart-space-xs, 8px);
+}
+
+.tejcart-swatch__label {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--tejcart-text, #202223);
+    white-space: nowrap;
+}
+
+/* ================================================================
+   States
+   ================================================================ */
+
+/* Hover */
+.tejcart-swatches-wrapper .tejcart-swatch:not(.tejcart-swatch--disabled):not([aria-checked="true"]):hover {
+    background: #f3f4f6 !important;
+    border-color: #9ca3af !important;
+    color: #374151 !important;
+    box-shadow: none !important;
+}
+
+/* Focus visible */
+.tejcart-swatches-wrapper .tejcart-swatch:focus-visible {
+    outline: 2px solid #111827 !important;
+    outline-offset: 2px;
+}
+
+/* Selected — aria-checked + !important overrides inline styles */
+.tejcart-swatches-wrapper button.tejcart-swatch[aria-checked="true"] {
+    background: #111827 !important;
+    border-color: #111827 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+}
+
+.tejcart-swatches-wrapper button.tejcart-swatch[aria-checked="true"] .tejcart-swatch__label {
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+/* Disabled — cross style (diagonal strike-through) */
+.tejcart-swatch--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.tejcart-swatch--disabled-cross {
+    opacity: 0.7;
+}
+
+.tejcart-swatch--disabled-cross::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    right: -2px;
+    height: 2px;
+    background: var(--tejcart-error-accent, #d72c0d);
+    transform: rotate(-45deg);
+    pointer-events: none;
+}
+
+/* Disabled — blur style */
+.tejcart-swatch--disabled-blur {
+    filter: grayscale(80%) blur(1px);
+    opacity: 0.4;
+}
+
+/* ================================================================
+   Tooltip
+   ================================================================ */
+
+.tejcart-swatch[data-tooltip] {
+    position: relative;
+}
+
+.tejcart-swatch[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 8px;
+    background: var(--tejcart-bg-inverse, #1a1a1a);
+    color: var(--tejcart-text-inverse, #ffffff);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    border-radius: var(--tejcart-radius-xs, 4px);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 10;
+}
+
+.tejcart-swatch[data-tooltip]::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--tejcart-bg-inverse, #1a1a1a);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 10;
+}
+
+.tejcart-swatch[data-tooltip]:hover::before,
+.tejcart-swatch[data-tooltip]:hover::after,
+.tejcart-swatch[data-tooltip]:focus-visible::before,
+.tejcart-swatch[data-tooltip]:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ================================================================
+   Shop page — compact mode
+   ================================================================ */
+
+.tejcart-shop-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tejcart-space-2xs, 4px);
+    align-items: center;
+    margin: var(--tejcart-space-2xs, 4px) 0;
+}
+
+.tejcart-swatch--compact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--tejcart-border, #e1e3e5);
+    background: var(--tejcart-bg-surface, #ffffff);
+    box-sizing: border-box;
+    cursor: default;
+    transition: border-color 0.15s ease;
+}
+
+/* Compact shape variants inherit from parent */
+.tejcart-swatches--circle .tejcart-swatch--compact {
+    border-radius: var(--tejcart-radius-pill, 999px);
+}
+
+.tejcart-swatches--square .tejcart-swatch--compact {
+    border-radius: 2px;
+}
+
+.tejcart-swatches--rounded .tejcart-swatch--compact {
+    border-radius: var(--tejcart-radius-sm, 6px);
+}
+
+.tejcart-swatch--compact .tejcart-swatch__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.tejcart-swatch--compact.tejcart-swatch--label {
+    width: auto;
+    min-width: 24px;
+    height: auto;
+    padding: 1px 5px;
+}
+
+.tejcart-swatch--compact .tejcart-swatch__label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.tejcart-shop-swatches__overflow {
+    font-size: 11px;
+    color: var(--tejcart-text-muted, #6d7175);
+    line-height: 24px;
+    padding-left: var(--tejcart-space-2xs, 4px);
+}
+
+/* Compact tooltip */
+.tejcart-swatch--compact[data-tooltip] {
+    position: relative;
+}
+
+.tejcart-swatch--compact[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2px 6px;
+    background: var(--tejcart-bg-inverse, #1a1a1a);
+    color: var(--tejcart-text-inverse, #ffffff);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    border-radius: var(--tejcart-radius-xs, 4px);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 10;
+}
+
+.tejcart-swatch--compact[data-tooltip]:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+
+@media (max-width: 480px) {
+    .tejcart-swatch {
+        width: 32px;
+        height: 32px;
+    }
+
+    .tejcart-swatch--label {
+        width: auto;
+        height: auto;
+        padding: 3px 6px;
+    }
+
+    .tejcart-swatch__label {
+        font-size: 12px;
+    }
+
+    .tejcart-swatch--compact {
+        width: 20px;
+        height: 20px;
+    }
+}

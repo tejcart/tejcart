@@ -1,0 +1,68 @@
+/**
+ * TejCart Dashboard widget styles.
+ *
+ * Renders inside the standard WP `<div id="dashboard-widgets">` block on
+ * `wp-admin/index.php`, which doesn't enqueue `tejcart-admin.css`. The
+ * stylesheet is therefore self-contained — tokens are inherited from
+ * the WP-admin chrome rather than the `--nc-*` palette to keep the
+ * widget visually consistent with the surrounding Site Health / At a
+ * Glance / Activity widgets.
+ */
+
+.tejcart-dashboard-widget {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.tejcart-dashboard-widget__strap {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tejcart-dashboard-widget__strap li {
+    margin: 0;
+}
+
+.tejcart-dashboard-widget__section-title {
+    margin: 16px 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.tejcart-dashboard-widget__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tejcart-dashboard-widget__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.tejcart-dashboard-widget__row:last-child {
+    border-bottom: 0;
+}
+
+.tejcart-dashboard-widget__status {
+    margin-left: 6px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.tejcart-dashboard-widget__footer {
+    margin-top: 10px;
+}
+
+.tejcart-dashboard-widget__empty {
+    margin-top: 12px;
+    color: #6b7280;
+}

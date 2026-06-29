@@ -1,0 +1,193 @@
+/**
+ * TejCart deactivation feedback modal.
+ *
+ * Styles the modal shown on the Plugins screen when an administrator
+ * deactivates TejCart. Uses WordPress dashicons for the close/return
+ * glyphs, so no custom icon font is bundled.
+ */
+
+.tejcart-deactivation-Modal {
+    display: none;
+    position: fixed;
+    width: 550px;
+    max-width: calc( 100% - 32px );
+    height: auto;
+    top: 50%;
+    left: 50%;
+    background: #fff;
+    color: #444;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba( 0, 0, 0, 0.3 );
+    transform: translateX( -50% ) translateY( -50% );
+    z-index: 100000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.tejcart-deactivation-Modal.tejcart-deactivation-isVisible {
+    display: block;
+}
+
+.tejcart-deactivation-Modal-overlay {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba( 0, 0, 0, 0.7 );
+    z-index: 99999;
+}
+
+.tejcart-deactivation-Modal-overlay.tejcart-deactivation-isVisible {
+    display: block;
+}
+
+.tejcart-deactivation-Modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 0 32px;
+    border-bottom: 1px solid #eee;
+}
+
+.tejcart-deactivation-Modal-header > div {
+    display: flex;
+    align-items: center;
+}
+
+.tejcart-deactivation-Modal-header h2 {
+    max-width: 430px;
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #23282d;
+    margin: 12px 0;
+}
+
+.tejcart-deactivation-Modal-close,
+.tejcart-deactivation-Modal-return {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #777;
+    padding: 0;
+    line-height: 1;
+}
+
+.tejcart-deactivation-Modal-close:hover,
+.tejcart-deactivation-Modal-close:focus,
+.tejcart-deactivation-Modal-return:hover,
+.tejcart-deactivation-Modal-return:focus {
+    color: #008ec2;
+    outline: none;
+}
+
+.tejcart-deactivation-Modal-close .dashicons,
+.tejcart-deactivation-Modal-return .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.tejcart-deactivation-Modal-return {
+    display: none;
+    margin-right: 8px;
+}
+
+.tejcart-deactivation-Modal-content {
+    padding: 8px 32px;
+}
+
+.tejcart-deactivation-Modal-question {
+    display: none;
+}
+
+.tejcart-deactivation-Modal-question.tejcart-deactivation-isOpen {
+    display: block;
+}
+
+.tejcart-deactivation-Modal-content ul {
+    margin: 12px 0;
+}
+
+.tejcart-deactivation-Modal-content ul li {
+    padding: 4px 0;
+}
+
+.tejcart-deactivation-Modal input[type="radio"] {
+    margin-top: 1px;
+    margin-right: 8px;
+}
+
+.tejcart-deactivation-Modal-fieldHidden {
+    display: none;
+    padding-left: 26px;
+    margin-top: 8px;
+}
+
+.tejcart-deactivation-Modal-fieldHidden.tejcart-deactivation-isOpen {
+    display: block;
+}
+
+.tejcart-deactivation-Modal-fieldHidden textarea {
+    width: 100%;
+    height: 60px;
+    padding: 5px;
+    border: 1px solid #8c8f94;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.tejcart-deactivation-Modal-fieldHidden textarea:focus {
+    outline: none;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.tejcart-deactivation-Modal-privacy {
+    margin-top: 16px;
+    font-size: 12px;
+    color: #777;
+}
+
+.tejcart-deactivation-Modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 32px;
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+    border-radius: 0 0 4px 4px;
+}
+
+.tejcart-deactivation-Modal-footer #tejcart-deactivation-no-reason {
+    color: #777;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+.tejcart-deactivation-Modal-footer #tejcart-deactivation-no-reason:hover {
+    color: #008ec2;
+}
+
+.tejcart-deactivation-Modal .button-primary.tejcart-deactivation-isDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+html[dir="rtl"] .tejcart-deactivation-Modal-header {
+    padding: 0 32px 0 16px;
+}
+
+html[dir="rtl"] .tejcart-deactivation-Modal-return {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+html[dir="rtl"] .tejcart-deactivation-Modal-fieldHidden {
+    padding-left: 0;
+    padding-right: 26px;
+}

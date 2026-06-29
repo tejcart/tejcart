@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Product image placeholder" preserveAspectRatio="xMidYMid meet">
+  <rect width="600" height="600" fill="#f3f4f6"/>
+  <rect x="40" y="40" width="520" height="520" fill="none" stroke="#d1d5db" stroke-width="2" rx="12" ry="12"/>
+  <g fill="none" stroke="#9ca3af" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="160" y="180" width="280" height="200" rx="10" ry="10"/>
+    <circle cx="230" cy="245" r="22" fill="#9ca3af" stroke="none"/>
+    <path d="M170 360 L255 280 L320 335 L385 270 L430 310 L430 370 L170 370 Z" fill="#9ca3af" stroke="none" opacity="0.9"/>
+  </g>
+  <text x="300" y="450" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="26" font-weight="500" fill="#6b7280">No image available</text>
+</svg>

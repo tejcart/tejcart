@@ -1,0 +1,21 @@
+/**
+ * TejCart Block Editor Styles.
+ *
+ * Styles for TejCart blocks inside the WordPress block editor.
+ *
+ * @package TejCart
+ */
+
+.wp-block[data-type^="tejcart/"] .components-placeholder {
+	min-height: 80px;
+}
+
+.wp-block[data-type^="tejcart/"] .components-placeholder__label .dashicon {
+	margin-right: 8px;
+}
+
+.wp-block[data-type^="tejcart/"] .components-placeholder__instructions {
+	margin-top: 4px;
+	color: #757575;
+	font-size: 13px;
+}

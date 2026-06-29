@@ -1,0 +1,161 @@
+/*
+ * TejCart Store Insights — admin dashboard styles.
+ *
+ * This stylesheet opts into core's tejcart-admin.css bundle via the
+ * tejcart_admin_page_hooks filter. It inherits .tejcart-card,
+ * .tejcart-pill, .nxc-btn, and the --nc-* token family. Only add
+ * module-specific rules here.
+ */
+
+.tejcart-analytics-advanced .tejcart-aa-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tejcart-aa-cohort-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 800px;
+    font-size: 13px;
+}
+
+.tejcart-aa-cohort-table th,
+.tejcart-aa-cohort-table td {
+    padding: 6px 10px;
+    border: 1px solid var(--nc-border, #e0e0e0);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.tejcart-aa-cohort-table th {
+    background: var(--nc-bg-subtle, #f9fafb);
+    font-weight: 600;
+    text-align: center;
+}
+
+.tejcart-aa-cohort-table td:first-child,
+.tejcart-aa-cohort-table th:first-child {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    background: var(--nc-bg-card, #fff);
+    z-index: 1;
+}
+
+.tejcart-aa-cohort-table th:first-child {
+    background: var(--nc-bg-subtle, #f9fafb);
+}
+
+.tejcart-aa-retention-cell {
+    font-variant-numeric: tabular-nums;
+}
+
+.tejcart-aa-retention--high {
+    background: color-mix(in srgb, var(--nc-success, #00a32a) 15%, transparent);
+    color: var(--nc-success, #00a32a);
+    font-weight: 600;
+}
+
+.tejcart-aa-retention--mid {
+    background: color-mix(in srgb, var(--nc-success, #00a32a) 7%, transparent);
+    color: var(--nc-text, #1e1e1e);
+}
+
+.tejcart-aa-retention--low {
+    background: color-mix(in srgb, var(--nc-warning, #dba617) 10%, transparent);
+    color: var(--nc-text-secondary, #6b7280);
+}
+
+/* KPI segment grid */
+.tejcart-aa-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.tejcart-aa-kpi-card .tejcart-card-body {
+    text-align: center;
+    padding: 1em;
+}
+
+.tejcart-aa-kpi-value {
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--nc-text, #1e1e1e);
+}
+
+.tejcart-aa-kpi-label {
+    font-size: 13px;
+    color: var(--nc-text-secondary, #6b7280);
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tejcart-aa-kpi-detail {
+    font-size: 13px;
+    color: var(--nc-text-secondary, #6b7280);
+    line-height: 1.6;
+}
+
+/* Chart containers */
+.tejcart-aa-chart-container {
+    position: relative;
+    height: 360px;
+    margin-bottom: 1.5em;
+}
+
+.tejcart-aa-chart-container--square {
+    height: 300px;
+}
+
+.tejcart-aa-segments-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+/* Top customers card */
+.tejcart-aa-top-customers {
+    margin-top: 1.5em;
+}
+
+/* Currency selector */
+.tejcart-aa-currency-select {
+    height: 36px;
+    padding: 0 8px;
+    border: 1px solid var(--nc-border, #e0e0e0);
+    border-radius: var(--nc-radius-sm, 4px);
+    font-size: 13px;
+    background: var(--nc-bg-card, #fff);
+    color: var(--nc-text, #1e1e1e);
+    cursor: pointer;
+}
+
+/* Staleness banner */
+.tejcart-aa-staleness-banner {
+    margin: 1em 0;
+}
+
+.tejcart-aa-rebuild-btn {
+    margin-left: 8px;
+    vertical-align: baseline;
+}
+
+.tejcart-aa-rebuild-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 782px) {
+    .tejcart-aa-chart-container {
+        height: 260px;
+    }
+
+    .tejcart-aa-segments-charts {
+        grid-template-columns: 1fr;
+    }
+}
